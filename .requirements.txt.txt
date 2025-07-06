@@ -1,0 +1,31 @@
+🖥️ Frontend	React + HTML + CSS + JS
+🔧 Backend	FastAPI + Python Packages + Mermlab
+🧠 Chatbot	LangChain
+🗃️ Database	PostgreSQL
+🚀 Deployment	(TBD – you can use Vercel, Render, etc.)
+==
+Front-End: React + react pkgs + css + and more
+===
+Backend:FastApi + uvicorn + sqlalchemy + 
+"psycopg2-binary	PostgreSQL adapter"
+"python-dotenv	Load env vars"
+"passlib[bcrypt]	For password hashing"
+"python-jose	For JWT Auth"
+"pydantic	For schema validation"
+"corsheaders	Enable frontend-backend requests"
+"mermlab	For LangChain-related tools (if used internally)"
+"mermlab : For External ADmin Panel"
+===
+"For Chatbot : Langchain + langchain-openai + sentence-transformers + tiktoken + 
+===
+DataBase: pgAdmin(GUI) or sqlalchemy 
+==
+Postman / ThunderClient	: Test API 
+====
+Backend For FastAPI Pkg: fastapi + uvicorn + python-dotenv + pydantic + bcrypt + fast-api login + python-jose + cloudinary + python-multipart + seaborn + email-validator + 
+
+
+
+
+
+

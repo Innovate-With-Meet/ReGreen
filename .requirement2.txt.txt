@@ -1,0 +1,83 @@
+# 📦 Core
+fastapi
+uvicorn
+pydantic
+python-dotenv
+
+# 🔐 Auth & Security
+bcrypt
+passlib[bcrypt]
+python-jose
+email-validator
+
+# 📂 File Upload & Storage
+aiofiles
+python-multipart
+cloudinary
+
+# 🧠 AI / LLM / Chatbot
+openai
+langchain
+tiktoken
+sentence-transformers
+chromadb
+
+# 🗃️ SQL & NoSQL Databases
+sqlalchemy
+psycopg2-binary
+alembic
+motor
+# Optional if using ODM with MongoDB
+# beanie
+
+# 📊 Data Visualization
+seaborn
+matplotlib
+
+# ⚙️ Utils & HTTP
+httpx
+decorator
+requests
+==
+Category	Purpose	Examples of Use
+✅ Core Backend	FastAPI app engine	API routes, request handling
+🔐 Auth & Security	Secure login & tokens	JWT auth, password hashing
+📂 File Handling & Storage	Upload files/images	Upload profile pics, bottle images
+🧠 AI & Chatbot	LangChain, OpenAI GPT	Smart assistant, redeem suggestions
+🗃️ Databases	SQL + NoSQL support	PostgreSQL (main), MongoDB (AI memory)
+📊 Data Analysis	Stats & charts	Admin dashboard, bottle credit trends
+⚙️ Utils & Helpers	Extra tools	API calls, decorators, email validation
+==
+Module Name	Packages You Need
+auth/ (Login, Signup)	bcrypt, python-jose, pydantic, passlib
+routes/ (APIs)	fastapi, uvicorn, httpx, requests
+chatbot/ (LangChain bot)	langchain, openai, chromadb, sentence-transformers
+database/ (DB connections)	sqlalchemy, motor, psycopg2-binary, alembic
+utils/ (helpers)	decorator, dotenv, aiofiles, python-multipart
+models/ (tables/schemas)	sqlalchemy, pydantic, email-validator
+analytics/ (admin charts)	seaborn, matplotlib
+===
+
+🔗 API routing	fastapi
+🧾 Input validation	pydantic
+🔐 User authentication (signup/login)	bcrypt, passlib, python-jose
+🛡️ Token-based security	JWT (via python-jose)
+🌍 CORS support for frontend	fastapi.middleware.cors (built-in)
+🗃️ Database CRUD (SQL/NoSQL)	sqlalchemy, motor, psycopg2
+📤 File/image uploads	aiofiles, python-multipart, cloudinary
+🌱 Environment config	python-dotenv
+📩 Email input validation	email-validator
+📡 API calls (e.g., to Cloudinary or external APIs)	httpx, requests
+
+===
+🧠 Chatbot with memory / LLM features	langchain, openai, chromadb
+🧠 Document/prompt embedding	sentence-transformers
+🧠 Token calculation for billing/limits	tiktoken
+📊 Data visualization for dashboard	seaborn, matplotlib
+📄 Migration support for PostgreSQL	alembic
+🧰 Decorator-based role control	decorator
+🔐 Role-based auth	python-jose, custom decorators
+🧠 Async MongoDB for storing dynamic/LLM/chat data	motor
+
+
+===
