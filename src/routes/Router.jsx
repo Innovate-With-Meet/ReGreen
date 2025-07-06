@@ -19,12 +19,13 @@
 
 import { Routes, Route } from "react-router-dom";
 import Login from "../User_Based_Login/Login.jsx";
-
+import Home from "../User_Based_Login/Home.jsx";
 export const AppRouter = () => {
     return (
         <Routes>
 
             <Route path="/loginform" element={<Login />} />
+            <Route path="/home" element={<Home />} />
 
         </Routes >
     )

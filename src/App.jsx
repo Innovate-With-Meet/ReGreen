@@ -8,7 +8,6 @@ function App() {
   return (
     <>
       <AppRouter />
-      <h1>Test The ReGreen</h1>
     </>
   )
 }
