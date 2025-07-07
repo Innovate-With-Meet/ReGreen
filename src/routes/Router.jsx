@@ -19,16 +19,19 @@
 
 import { Routes, Route } from "react-router-dom";
 import Login from "../User_Based_Login/Login.jsx";
+import Signup from "../User_Based_Login/Signup.jsx";
 import Home from "../User_Based_Login/Home.jsx";
+import Dashboard from "../Admin/Dashboard/Dashboard.jsx";
+
 export const AppRouter = () => {
     return (
         <Routes>
-
             <Route path="/loginform" element={<Login />} />
             <Route path="/home" element={<Home />} />
-
-        </Routes >
-    )
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+        </Routes>
+    );
 }
 
 export default AppRouter;
