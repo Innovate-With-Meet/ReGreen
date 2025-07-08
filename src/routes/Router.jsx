@@ -21,7 +21,7 @@ import { Routes, Route } from "react-router-dom";
 import Login from "../User_Based_Login/Login.jsx";
 import Signup from "../User_Based_Login/Signup.jsx";
 import Home from "../User_Based_Login/Home.jsx";
-import Dashboard from "../Admin/Dashboard/Dashboard.jsx";
+// import Dashboard from "../Admin/Dashboard/Dashboard.jsx";
 
 export const AppRouter = () => {
     return (
@@ -29,7 +29,7 @@ export const AppRouter = () => {
             <Route path="/loginform" element={<Login />} />
             <Route path="/home" element={<Home />} />
             <Route path="/signup" element={<Signup />} />
-            <Route path="/dashboard" element={<Dashboard />} />
+            {/* <Route path="/dashboard" element={<Dashboard />} /> */}
         </Routes>
     );
 }

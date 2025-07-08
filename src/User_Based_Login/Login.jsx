@@ -1,69 +1,71 @@
-// import React from 'react';
+import React, { useState } from "react";
+import { Box, Button, TextField, Typography, Paper } from "@mui/material";
 
-// export const Login = () => {
-//     return (
-//         <div>
-//             <h2> Login form will go here </h2>
-//         </div>
-//     );
-// };
+export const LoginPage = () => {
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
 
-// export default Login;
-
-import React from "react";
-import { useState } from "react";
-import axios from "axios";
-
-export const Login = () => {
-    const [formData, setFormData] = useState({ email: "", password: "" });
-    const [msg, setMsg] = useState("");
-
-    const handleChange = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
-    };
-
-    const handleSubmit = async (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
-
-        try {
-            const response = await axios.post("http://localhost:8000/auth/login", formData);
-            const token = response.data.access_token;
-            localStorage.setItem("token", token);
-            setMsg("Login successful!");
-        } catch (error) {
-            console.error(error);
-            setMsg("Login failed.");
-        }
+        // handle login logic here
+        alert(`Username: ${username}\nPassword: ${password}`);
     };
 
     return (
-        <div>
-            <h2>Login</h2>
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label>Email:</label><br />
-                    <input
-                        type="email"
-                        name="email"
-                        value={formData.email}
-                        required
-                        onChange={handleChange}
-                    />
-                </div>
-                <div>
-                    <label>Password:</label><br />
-                    <input
-                        type="password"
-                        name="password"
-                        value={formData.password}
-                        required
-                        onChange={handleChange}
-                    />
-                </div>
-                <button type="submit">Login</button>
-            </form>
-            <p>{msg}</p>
-        </div>
+        <Box
+            sx={{
+                minHeight: "100vh",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                bgcolor: "#f5f5f5",
+            }}
+        >
+            <Paper
+                elevation={3}
+                sx={{
+                    p: 4,
+                    width: 350,
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: 2,
+                }}
+            >
+                <Typography variant="h5" align="center" gutterBottom>
+                    Login
+                </Typography>
+                <form onSubmit={handleSubmit}>
+                    <Box display="flex" flexDirection="column" gap={2}>
+                        <TextField
+                            label="Username"
+                            variant="outlined"
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)}
+                            required
+                            fullWidth
+                        />
+                        <TextField
+                            label="Password"
+                            type="password"
+                            variant="outlined"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            required
+                            fullWidth
+                        />
+                        <Button
+                            variant="contained"
+                            color="primary"
+                            type="submit"
+                            fullWidth
+                        >
+                            Login
+                        </Button>
+                    </Box>
+                </form>
+            </Paper>
+        </Box>
     );
-}
-export default Login;
+};
+
+export default LoginPage;
