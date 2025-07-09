@@ -100,7 +100,7 @@ export const UserLogIn = (props) => {
         return isValid;
     };
 
-    // With Google Credentials
+    // // // With Google Credentials
     // const handleGoogleLogin = async (credentialResponse) => {
     //     try {
     //         // Decode the Google credential
@@ -297,7 +297,7 @@ export const UserLogIn = (props) => {
                         /> */}
 
                         {/* <Button
-                        
+
                             fullWidth
                             variant="outlined"
                             onClick={() => alert("Sign in with Facebook")}
