@@ -1,0 +1,17 @@
+1. User Profile: Get For Read Data, Post For Send Data, Put For Update Data( Patch ), Delete The Data.
+(Read, Write, Update, Delete)
+
+2. Bottle Submission: 
+2.1 Upload the photo,submit,wait for conform of credit Earn. 
+2.2 Enter the Amount Of Bottle Like How Many Bottle Need to Submit.
+2.3 Submission Status
+
+3. Total Credit Earn: Total Credir Use
+
+4. Reward & Redeem: View available Reward(like hackclub: more credit more gift), Purchase History
+
+5. Intro Description: Types Of Bottle, How to use System, Benifits.
+
+6. Activity: How many You Just Stop by Recycle bottle, Education Data for Stop Pollution & Statistics
+
+7. Feedback: LangChain-ChatBoat, Raise a Query, Contact Via Mail.
