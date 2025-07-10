@@ -5,6 +5,7 @@ import UserRegistration from "../User_Based_Login/UserRegistration.jsx";
 import UserLogin from "../User_Based_Login/UserLogin.jsx";
 import LandingPage from "../Landing/Landing_Page.jsx";
 import ErrorPage from "../Landing/Error_Page.jsx";
+import Dashboard from "../UserAdmin/jsx/Dashboard/Dashboard.jsx";
 export const AppRouter = () => {
     return (
         <Routes>
@@ -14,6 +15,7 @@ export const AppRouter = () => {
             <Route path="/userlogin" element={<UserLogin />} />
             <Route path="/" element={<LandingPage />} />
             <Route path="/*" element={<ErrorPage />} />
+            <Route path="/dashboard" element={<Dashboard />} />
 
 
             {/* <Route path="/dashboard" element={<Dashboard />} /> */}
