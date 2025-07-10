@@ -1,58 +1,121 @@
-import React, { useState } from 'react';
-import { Box, Drawer, List, ListItem, ListItemIcon, ListItemText, Tooltip } from '@mui/material';
+import * as React from 'react';
+import PropTypes from 'prop-types';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import { createTheme } from '@mui/material/styles';
 import DashboardIcon from '@mui/icons-material/Dashboard';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import BarChartIcon from '@mui/icons-material/BarChart';
+import DescriptionIcon from '@mui/icons-material/Description';
 import LayersIcon from '@mui/icons-material/Layers';
-import { useNavigate } from 'react-router-dom';
+import { AppProvider } from '@toolpad/core/AppProvider';
+import { DashboardLayout } from '@toolpad/core/DashboardLayout';
+import { DemoProvider, useDemoRouter } from '@toolpad/core/internal';
+import Navbar from './Navbar'; // 👉 Make sure the path is correct
 
-const drawerWidthCollapsed = 60;
-const drawerWidthExpanded = 200;
-
-const sidebarItems = [
-    { label: 'Dashboard', icon: <DashboardIcon />, path: '/dashboard' },
-    { label: 'Reports', icon: <BarChartIcon />, path: '/reports' },
-    { label: 'Integrations', icon: <LayersIcon />, path: '/integrations' },
+const NAVIGATION = [
+    {
+        kind: 'header',
+        title: 'Main items',
+    },
+    {
+        segment: 'dashboard',
+        title: 'Dashboard',
+        icon: <DashboardIcon />,
+    },
+    {
+        segment: 'orders',
+        title: 'Orders',
+        icon: <ShoppingCartIcon />,
+    },
+    {
+        kind: 'divider',
+    },
+    {
+        kind: 'header',
+        title: 'Analytics',
+    },
+    {
+        segment: 'reports',
+        title: 'Reports',
+        icon: <BarChartIcon />,
+        children: [
+            {
+                segment: 'sales',
+                title: 'Sales',
+                icon: <DescriptionIcon />,
+            },
+            {
+                segment: 'traffic',
+                title: 'Traffic',
+                icon: <DescriptionIcon />,
+            },
+        ],
+    },
+    {
+        segment: 'integrations',
+        title: 'Integrations',
+        icon: <LayersIcon />,
+    },
 ];
 
-export const Sidebar = () => {
-    const [expanded, setExpanded] = useState(false);
-    const navigate = useNavigate();
+const demoTheme = createTheme({
+    cssVariables: {
+        colorSchemeSelector: 'data-toolpad-color-scheme',
+    },
+    colorSchemes: { light: true, dark: true },
+    breakpoints: {
+        values: {
+            xs: 0,
+            sm: 600,
+            md: 600,
+            lg: 1200,
+            xl: 1536,
+        },
+    },
+});
 
+function DemoPageContent({ pathname }) {
     return (
-        <Drawer
-            variant="permanent"
-            onMouseEnter={() => setExpanded(true)}
-            onMouseLeave={() => setExpanded(false)}
-            PaperProps={{
-                sx: {
-                    width: expanded ? drawerWidthExpanded : drawerWidthCollapsed,
-                    overflowX: 'hidden',
-                    transition: 'width 0.3s ease-in-out',
-                    top: '48px', // match your fixed navbar height
-                    height: 'calc(100% - 48px)',
-                    bgcolor: 'background.paper',
-                    borderRight: '1px solid #ddd',
-                },
+        <Box
+            sx={{
+                py: 4,
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                textAlign: 'center',
             }}
         >
-            <List>
-                {sidebarItems.map(({ label, icon, path }) => (
-                    <ListItem
-                        button
-                        key={label}
-                        onClick={() => navigate(path)}
-                        sx={{ paddingY: 1.5, paddingX: 2 }}
-                    >
-                        <Tooltip title={!expanded ? label : ''} placement="right">
-                            <ListItemIcon sx={{ minWidth: 0, justifyContent: 'center' }}>
-                                {icon}
-                            </ListItemIcon>
-                        </Tooltip>
-                        {expanded && <ListItemText primary={label} sx={{ marginLeft: 2 }} />}
-                    </ListItem>
-                ))}
-            </List>
-        </Drawer>
+            <Typography>Dashboard content for {pathname}</Typography>
+        </Box>
+    );
+}
+
+DemoPageContent.propTypes = {
+    pathname: PropTypes.string.isRequired,
+};
+
+export const Sidebar = (props) => {
+    const { window } = props;
+    const router = useDemoRouter('/dashboard');
+    const demoWindow = window !== undefined ? window() : undefined;
+
+    return (
+        <DemoProvider window={demoWindow}>
+            {/* ✅ Navbar at the top of Sidebar layout */}
+            <Navbar />
+
+            <AppProvider
+                navigation={NAVIGATION}
+                router={router}
+                theme={demoTheme}
+                window={demoWindow}
+            >
+                <DashboardLayout>
+                    <DemoPageContent pathname={router.pathname} />
+                </DashboardLayout>
+            </AppProvider>
+        </DemoProvider>
     );
 };
 
