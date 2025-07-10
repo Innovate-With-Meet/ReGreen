@@ -1,232 +1,168 @@
-import { Link } from "react-router-dom";
-import * as React from "react";
+import * as React from 'react';
+import { alpha, styled } from '@mui/material/styles';
 import {
     AppBar,
     Box,
     Toolbar,
-    IconButton,
-    Typography,
-    Menu,
-    Container,
-    Avatar,
     Button,
-    Tooltip,
+    IconButton,
+    Container,
+    Divider,
     MenuItem,
-} from "@mui/material";
-import Stack from "@mui/material/Stack";
-import MenuIcon from "@mui/icons-material/Menu";
-import { ThreeDRotation } from "@mui/icons-material";
-import { Time } from "./Time";
-import { useNavigate } from "react-router-dom";
-import ColorModeIconDropdown from "../shared-theme/ColorModeIconDropdown"
+    Drawer,
+} from '@mui/material';
+import MenuIcon from '@mui/icons-material/Menu';
+import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
+// import ColorModeIconDropdown from '../../shared-theme/ColorModeIconDropdown';
+import ColorModeIconDropdown from '../shared-theme/ColorModeIconDropdown';
+import { useNavigate } from 'react-router-dom';
 
-const pages = [
-    { name: "Home", path: "/" },
-    { name: "About", path: "/aboutus" },
-    { name: "Services", path: "/services" },
-    { name: "Contact", path: "/contact" },
-    // { name: "Time", path: "/time" },
-    { name: "Provider", path: "/provider" },
-
-    // { name: "BlogPage", path: "/blogpage" },
-    // { name: "Profile", path: "/UserProfile" },
-    { name: "1.Provider-Request", path: "/ProviderRequestPage" },
-    // { name: "2.Dashboard", path: "/dashboard" },
-    { name: "3.TestCode", path: "/testcode" },
-
-
-
-
-
-];
-
-const settings = ["Dashboard", "UserProfile"];
-// const settings = ["Account", "Dashboard", "Logout", "UserProfile"];
-
+const StyledToolbar = styled(Toolbar)(({ theme }) => ({
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    backdropFilter: 'blur(20px)',
+    borderRadius: theme.shape.borderRadius + 6,
+    border: `1px solid ${alpha(theme.palette.divider, 0.3)}`,
+    background: 'linear-gradient(to right, #2196f3, #21cbf3)',
+    boxShadow: theme.shadows[4],
+    padding: '4px 8px', // 🔧 Reduced vertical and horizontal padding
+    minHeight: '48px !important', // 🔧 Optional: reduce height if needed
+}));
 
 export const Navbar = () => {
-    const [anchorElNav, setAnchorElNav] = React.useState(null);
-    const [anchorElUser, setAnchorElUser] = React.useState(null);
-    const [anchorElLogin, setAnchorElLogin] = React.useState(null);
-    const [anchorElSignup, setAnchorElSignup] = React.useState(null);
-
+    const [open, setOpen] = React.useState(false);
     const navigate = useNavigate();
 
-    // Menu Open/Close Handlers
-    const handleOpenNavMenu = (event) => setAnchorElNav(event.currentTarget);
-    const handleOpenUserMenu = (event) => setAnchorElUser(event.currentTarget);
-    const handleOpenLoginMenu = (event) => setAnchorElLogin(event.currentTarget);
-    const handleOpenSignupMenu = (event) => setAnchorElSignup(event.currentTarget);
-
-    const handleCloseNavMenu = () => setAnchorElNav(null);
-    const handleCloseUserMenu = () => setAnchorElUser(null);
-    const handleCloseLoginMenu = () => setAnchorElLogin(null);
-    const handleCloseSignupMenu = () => setAnchorElSignup(null);
-
-
-    const handleMenuItemClick = (path) => {
-        navigate(path);
-        handleCloseLoginMenu();
-        handleCloseSignupMenu();
-
+    const toggleDrawer = (newOpen) => () => {
+        setOpen(newOpen);
     };
 
+    const handleLogout = () => {
+        localStorage.removeItem('authToken');
+        navigate('/Login');
+    };
 
+    const menuItems = [
+        { label: 'Section1', path: '/*' },
+        { label: 'Section2', path: '/*' },
+        { label: 'Section3', path: '/*' },
+        { label: 'Section4', path: '/*' },
+        { label: 'Section5', path: '/*' },
+
+    ];
 
     return (
-        <>
-            <AppBar position="fixed" sx={{ backgroundColor: "#1976d2", zIndex: 1000 }}>
-                <Container maxWidth="xl">
-                    <Toolbar disableGutters>
-                        <Typography
-                            variant="h6"
-                            component={Link}
-                            to="/"
-                            sx={{
-                                mr: 2,
-                                display: { xs: "none", md: "flex" },
-                                fontFamily: "monospace",
-                                fontWeight: 700,
-                                letterSpacing: ".2rem",
-                                color: "inherit",
-                                textDecoration: "none",
-                            }}
-                        >
-                            <ThreeDRotation />
-                        </Typography>
+        <AppBar
+            position="fixed"
+            enableColorOnDark
+            sx={{
+                backgroundImage: 'none',
+                bgcolor: 'transparent',
+                boxShadow: 0,
+                // mt: 'calc(var(--template-frame-height, 0px) + 28px)',
+            }}
+        >
+            {/* <Container maxWidth="lg"> */}
+            <Box sx={{ width: '100%' }}>
 
-                        {/* === Mobile Menu Icon === */}
-                        <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
-                            <IconButton size="large" onClick={handleOpenNavMenu} color="inherit">
-                                <MenuIcon />
-                            </IconButton>
-                            <Menu
-                                anchorEl={anchorElNav}
-                                open={Boolean(anchorElNav)}
-                                onClose={handleCloseNavMenu}
-                                sx={{ display: { xs: "block", md: "none" } }}
-                            >
-                                {pages.map((page) => (
-                                    <MenuItem key={page.name} onClick={handleCloseNavMenu}>
-                                        <Typography component={Link} to={page.path} sx={{ textDecoration: "none", color: "black" }}>
-                                            {page.name}
-                                        </Typography>
-                                    </MenuItem>
-                                ))}
-                            </Menu>
-                        </Box>
-
-                        {/* === Desktop Menu Links === */}
-                        <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-                            {pages.map((page) => (
-                                <Button key={page.name} component={Link} to={page.path} sx={{ my: 2, color: "white" }}>
-                                    {page.name}
+                <StyledToolbar variant="dense">
+                    <Box sx={{ flexGrow: 1, display: 'flex', alignItems: 'center' }}>
+                        <Box sx={{ display: { xs: 'none', md: 'flex' }, gap: 1.5 }}>
+                            {menuItems.map((item) => (
+                                <Button
+                                    key={item.label}
+                                    variant="text"
+                                    color="inherit"
+                                    onClick={() => navigate(item.path)}
+                                    sx={{
+                                        color: 'white',
+                                        fontWeight: 500,
+                                        textTransform: 'none',
+                                        '&:hover': {
+                                            backgroundColor: 'rgba(255,255,255,0.2)',
+                                            transform: 'scale(1.05)',
+                                        },
+                                        transition: 'all 0.3s ease',
+                                    }}
+                                >
+                                    {item.label}
                                 </Button>
                             ))}
-                            {/* <Time /> */}
-
                         </Box>
+                    </Box>
 
+                    <Box sx={{ display: { xs: 'none', md: 'flex' }, gap: 1 }}>
+                        <Button
+                            variant="contained"
+                            color="error"
+                            size="small"
+                            onClick={handleLogout}
+                            sx={{
+                                textTransform: 'none',
+                                fontWeight: 'bold',
+                            }}
+                        >
+                            Logout
+                        </Button>
+                    </Box>
 
-                        <Stack>
-                            <Box sx={{ flexGrow: 0, mx: 2 }}>
-                                <ColorModeIconDropdown />
-                            </Box>
-                        </Stack>
+                    {/* Mobile Menu */}
+                    <Box sx={{ display: { xs: 'flex', md: 'none' }, gap: 1 }}>
+                        <ColorModeIconDropdown size="medium" />
+                        <IconButton onClick={toggleDrawer(true)} color="inherit">
+                            <MenuIcon />
+                        </IconButton>
+                        <Drawer
+                            anchor="top"
+                            open={open}
+                            onClose={toggleDrawer(false)}
+                            PaperProps={{
+                                sx: {
+                                    top: 'var(--template-frame-height, 0px)',
+                                    backgroundColor: 'background.default',
+                                    p: 2,
+                                },
+                            }}
+                        >
+                            <Box>
+                                <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+                                    <IconButton onClick={toggleDrawer(false)}>
+                                        <CloseRoundedIcon />
+                                    </IconButton>
+                                </Box>
 
-
-
-                        {/* === Login Dropdown === */}
-                        <Box sx={{ flexGrow: 0, mx: 2 }}>
-                            <Button
-                                id="login-button"
-                                aria-controls={Boolean(anchorElLogin) ? "login-menu" : undefined}
-                                aria-haspopup="true"
-                                aria-expanded={Boolean(anchorElLogin) ? "true" : undefined}
-                                onClick={handleOpenLoginMenu}
-                                sx={{ color: "white", border: "1px solid white", borderRadius: "4px" }}
-                            >
-                                Log In
-                            </Button>
-
-                            <Menu
-                                id="login-menu"
-                                anchorEl={anchorElLogin}
-                                open={Boolean(anchorElLogin)}
-                                onClose={handleCloseLoginMenu}
-                                MenuListProps={{
-                                    "aria-labelledby": "login-button",
-                                }}
-                            >
-                                <MenuItem onClick={() => handleMenuItemClick("/UserLogIn")}>User Sign In</MenuItem>
-                                <MenuItem onClick={() => handleMenuItemClick("/AdminLogIn")}>Admin Sign In</MenuItem>
-                                <MenuItem onClick={() => handleMenuItemClick("/ProviderLogIn")}>Provider Sign In</MenuItem>
-                            </Menu>
-                        </Box>
-
-                        {/* =================================== */}
-                        {/* sign up dropdown */}
-                        <Box sx={{ flexGrow: 0, mx: 2 }}>
-                            <Button
-                                id="signup-button"
-                                aria-controls={Boolean(anchorElSignup) ? "signup-menu" : undefined}
-                                aria-haspopup="true"
-                                aria-expanded={Boolean(anchorElSignup) ? "true" : undefined}
-                                onClick={handleOpenSignupMenu}
-                                sx={{ color: "white", border: "1px solid white", borderRadius: "4px" }}
-                            >
-                                Sign Up
-                            </Button>
-
-                            <Menu
-                                id="login-menu"
-                                anchorEl={anchorElSignup}
-                                open={Boolean(anchorElSignup)}
-                                onClose={handleCloseSignupMenu}
-                                MenuListProps={{
-                                    "aria-labelledby": "signup-button",
-                                }}
-                            >
-                                <MenuItem onClick={() => handleMenuItemClick("/UserRegistration")}>User Sign Up </MenuItem>
-                                <MenuItem onClick={() => handleMenuItemClick("/AdminRegistration")}> Admin Sign Up </MenuItem>
-                                <MenuItem onClick={() => handleMenuItemClick("/ProviderRegistration")}>Provider Sign Up</MenuItem>
-                            </Menu>
-                        </Box>
-
-
-                        {/* ======================================== */}
-
-
-                        {/* === User Profile Menu === */}
-                        <Box sx={{ flexGrow: 0 }}>
-                            <Tooltip title="Open settings">
-                                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                    <Avatar alt="User Avatar" src="/static/images/avatar/2.jpg" />
-                                </IconButton>
-                            </Tooltip>
-                            <Menu
-                                anchorEl={anchorElUser}
-                                open={Boolean(anchorElUser)}
-                                onClose={handleCloseUserMenu}
-                                sx={{ mt: "45px" }}
-                            >
-                                {settings.map((setting) => (
-                                    <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                                        <Typography component={Link} to={`/${setting.toLowerCase()}`} sx={{ textDecoration: "none", color: "black" }}>
-                                            {setting}
-                                        </Typography>
+                                {menuItems.map((item) => (
+                                    <MenuItem
+                                        key={item.label}
+                                        onClick={() => {
+                                            navigate(item.path);
+                                            setOpen(false);
+                                        }}
+                                    >
+                                        {item.label}
                                     </MenuItem>
                                 ))}
-                            </Menu>
-                        </Box>
-                    </Toolbar>
-                </Container>
-            </AppBar>
 
-            {/* Spacer to prevent content from being hidden behind navbar */}
-            <Box sx={{ height: "64px" }} />
-        </>
+                                <Divider sx={{ my: 2 }} />
+                                <MenuItem>
+                                    <Button
+                                        variant="contained"
+                                        color="error"
+                                        fullWidth
+                                        onClick={handleLogout}
+                                    >
+                                        Logout
+                                    </Button>
+                                </MenuItem>
+                            </Box>
+                        </Drawer>
+                    </Box>
+                </StyledToolbar>
+                {/* </Container> */}
+            </Box>
+        </AppBar>
     );
 };
 
-// export default Dire;
+export default Navbar;

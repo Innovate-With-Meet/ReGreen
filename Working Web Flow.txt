@@ -1,1 +1,24 @@
 <h1> Web FLow Of The WBsite</h1>
+
+Dashboard: WElocme, Upcoming revenure, Upcoming Task, Hot Contact, Latest Activity, 
+
+Welcome: Done: Welcome Page
+Upcoming revenure:Done : Deal Chart
+Upcoming Task: Done Task List
+Hot Contact: DOne Hot Contact
+Latest Activity: DOne Dashboard Activity
+
+The Werbsite divide in 4 modules:
+
+Dashboard: Welcome: Done: Welcome Page
+Upcoming revenure:Done : Deal Chart
+Upcoming Task: Done Task List
+Hot Contact: DOne Hot Contact
+Latest Activity: DOne Dashboard Activity
+
+
+Contact: Number of contacts & features & filter & inside the contact pipeline to Companies
+
+Companies: Number of Companies & features & filter & info of Companies & 
+
+Deals: Info about deals & filter & more

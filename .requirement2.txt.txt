@@ -81,3 +81,23 @@ analytics/ (admin charts)	seaborn, matplotlib
 
 
 ===
+
+Navbar
+Sidebar
+Footer
+Hero sections
+Card Component
+Form Components
+Snackbar / Alerts
+Breadcrumbs
+Charts
+Avatar
+Dialogs / Modals
+Table / DataGrid
+Button Group / CTA Buttons
+Tabs
+Dark mode toggle
+Search bar
+Responsive menu
+
+===
