@@ -15,6 +15,10 @@ import Navbar from "../Layout/Navbar.jsx";
 import Sidebar from "../Layout/Sidebar.jsx";
 import LandingPage from "./LandingPage.jsx";
 
+
+import Navbartest from "../Layout/Navbartest.jsx";
+// import Drawer from "../Layout/Drawer.jsx";
+
 export const UserDashboard_Route = () => {
     const navigate = useNavigate();
 
@@ -39,6 +43,9 @@ export const UserDashboard_Route = () => {
             <Route path="/Navbar" element={<Navbar />} />
             <Route path="/Sidebar" element={<Sidebar />} />
             <Route path="/LandingPage" element={<LandingPage />} />
+
+            <Route path="/Navbartest" element={<Navbartest />} />
+            {/* <Route path="/Drawer" element={<Drawer />} /> */}
 
         </Routes>
     );
