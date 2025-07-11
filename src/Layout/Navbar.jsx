@@ -9,47 +9,45 @@ import {
     Container,
     Divider,
     MenuItem,
-    Drawer,
+    Drawer
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
-// import ColorModeIconDropdown from '../../shared-theme/ColorModeIconDropdown';
-import ColorModeIconDropdown from '../shared-theme/ColorModeIconDropdown';
 import { useNavigate } from 'react-router-dom';
 
 const StyledToolbar = styled(Toolbar)(({ theme }) => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
-    backdropFilter: 'blur(20px)',
-    borderRadius: theme.shape.borderRadius + 6,
-    border: `1px solid ${alpha(theme.palette.divider, 0.3)}`,
-    background: 'linear-gradient(to right, #2196f3, #21cbf3)',
-    boxShadow: theme.shadows[4],
-    padding: '4px 8px', // 🔧 Reduced vertical and horizontal padding
-    minHeight: '48px !important', // 🔧 Optional: reduce height if needed
+    flexShrink: 0,
+    borderRadius: `calc(${theme.shape.borderRadius}px + 8px)`,
+    backdropFilter: 'blur(24px)',
+    border: '1px solid',
+    borderColor: theme.palette.divider,
+    backgroundColor: alpha(theme.palette.background.default, 0.4),
+    boxShadow: theme.shadows[1],
+    padding: '4px 12px',
+    minHeight: '48px !important', // 🔻 Reduced height
 }));
 
 export const Navbar = () => {
     const [open, setOpen] = React.useState(false);
     const navigate = useNavigate();
 
-    const toggleDrawer = (newOpen) => () => {
-        setOpen(newOpen);
-    };
+    const toggleDrawer = (newOpen) => () => setOpen(newOpen);
 
     const handleLogout = () => {
-        localStorage.removeItem('authToken');
-        navigate('/Login');
+        localStorage.removeItem("authToken");
+        navigate("/Login");
     };
 
     const menuItems = [
-        { label: 'Section1', path: '/*' },
-        { label: 'Section2', path: '/*' },
-        { label: 'Section3', path: '/*' },
-        { label: 'Section4', path: '/*' },
-        { label: 'Section5', path: '/*' },
-
+        { label: 'Section 1', path: '/admin/allusers' },
+        { label: 'Section 2', path: '/admin/categorymanage' },
+        { label: 'Section 3', path: '/admin/adminanalytics' },
+        { label: 'Section 4', path: '/admin/allproviderusers' },
+        { label: 'Section 5', path: '#' },
+        { label: 'Profile', path: '/admin/profilepage' },
     ];
 
     return (
@@ -57,34 +55,25 @@ export const Navbar = () => {
             position="fixed"
             enableColorOnDark
             sx={{
-                backgroundImage: 'none',
-                bgcolor: 'transparent',
                 boxShadow: 0,
-                // mt: 'calc(var(--template-frame-height, 0px) + 28px)',
+                bgcolor: 'transparent',
+                backgroundImage: 'none',
+                mt: 'calc(var(--template-frame-height, 0px) + 28px)',
             }}
         >
-            {/* <Container maxWidth="lg"> */}
-            <Box sx={{ width: '100%' }}>
-
-                <StyledToolbar variant="dense">
+            <Container maxWidth="lg">
+                <StyledToolbar variant="dense" disableGutters>
+                    {/* Left Menu (Desktop) */}
                     <Box sx={{ flexGrow: 1, display: 'flex', alignItems: 'center' }}>
-                        <Box sx={{ display: { xs: 'none', md: 'flex' }, gap: 1.5 }}>
+                        <Box sx={{ display: { xs: 'none', md: 'flex' }, gap: 1 }}>
                             {menuItems.map((item) => (
                                 <Button
                                     key={item.label}
                                     variant="text"
-                                    color="inherit"
+                                    color="info"
+                                    size="small"
                                     onClick={() => navigate(item.path)}
-                                    sx={{
-                                        color: 'white',
-                                        fontWeight: 500,
-                                        textTransform: 'none',
-                                        '&:hover': {
-                                            backgroundColor: 'rgba(255,255,255,0.2)',
-                                            transform: 'scale(1.05)',
-                                        },
-                                        transition: 'all 0.3s ease',
-                                    }}
+                                    sx={{ textTransform: 'none', fontWeight: 500 }}
                                 >
                                     {item.label}
                                 </Button>
@@ -92,25 +81,22 @@ export const Navbar = () => {
                         </Box>
                     </Box>
 
-                    <Box sx={{ display: { xs: 'none', md: 'flex' }, gap: 1 }}>
+                    {/* Right Side Buttons (Desktop) */}
+                    <Box sx={{ display: { xs: 'none', md: 'flex' }, gap: 1, alignItems: 'center' }}>
                         <Button
                             variant="contained"
                             color="error"
                             size="small"
                             onClick={handleLogout}
-                            sx={{
-                                textTransform: 'none',
-                                fontWeight: 'bold',
-                            }}
+                            sx={{ minWidth: 0 }}
                         >
                             Logout
                         </Button>
                     </Box>
 
                     {/* Mobile Menu */}
-                    <Box sx={{ display: { xs: 'flex', md: 'none' }, gap: 1 }}>
-                        <ColorModeIconDropdown size="medium" />
-                        <IconButton onClick={toggleDrawer(true)} color="inherit">
+                    <Box sx={{ display: { xs: 'flex', md: 'none' }, gap: 5 }}>
+                        <IconButton aria-label="Menu" onClick={toggleDrawer(true)} color="inherit">
                             <MenuIcon />
                         </IconButton>
                         <Drawer
@@ -121,11 +107,10 @@ export const Navbar = () => {
                                 sx: {
                                     top: 'var(--template-frame-height, 0px)',
                                     backgroundColor: 'background.default',
-                                    p: 2,
                                 },
                             }}
                         >
-                            <Box>
+                            <Box sx={{ p: 2 }}>
                                 <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
                                     <IconButton onClick={toggleDrawer(false)}>
                                         <CloseRoundedIcon />
@@ -145,12 +130,16 @@ export const Navbar = () => {
                                 ))}
 
                                 <Divider sx={{ my: 2 }} />
+
                                 <MenuItem>
                                     <Button
                                         variant="contained"
                                         color="error"
                                         fullWidth
-                                        onClick={handleLogout}
+                                        onClick={() => {
+                                            handleLogout();
+                                            setOpen(false);
+                                        }}
                                     >
                                         Logout
                                     </Button>
@@ -159,8 +148,7 @@ export const Navbar = () => {
                         </Drawer>
                     </Box>
                 </StyledToolbar>
-                {/* </Container> */}
-            </Box>
+            </Container>
         </AppBar>
     );
 };
