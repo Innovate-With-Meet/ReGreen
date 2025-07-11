@@ -1,13 +1,9 @@
 import React from 'react';
-// import { Navbar } from './Layout/Navbar';
-// import { Footer } from './Layout/Footer';
-// import { MainComponents } from './Pages/MainComponents';
-// import { Latest } from './Pages/Latest';
 import { Navbar } from '../Layout/Navbar';
 import { Footer } from '../Layout/Footer';
 import { MainComponents } from './Pages/MainComponents';
 import { Latest } from './Pages/Latest';
-
+import { Sidebar } from '../Layout/Sidebar';
 import { Box } from '@mui/material';
 
 export const LandingPage = () => {
@@ -24,7 +20,7 @@ export const LandingPage = () => {
             }}
         >
             <Navbar />
-            {/* Spacer to prevent content from being hidden behind the Navbar */}
+            <Sidebar />
             <Box sx={{ height: '64px' }} /> {/* Adjust height based on Navbar height */}
             <Box
                 component="main"

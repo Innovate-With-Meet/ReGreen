@@ -9,11 +9,12 @@ import {
     Container,
     Divider,
     MenuItem,
-    Drawer
+    Drawer,
 } from '@mui/material';
-import MenuIcon from '@mui/icons-material/Menu';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
+import MenuIcon from '@mui/icons-material/Menu';
 import { useNavigate } from 'react-router-dom';
+import Sidebar from './Sidebar'; // ✅ Import your drawer component
 
 const StyledToolbar = styled(Toolbar)(({ theme }) => ({
     display: 'flex',
@@ -27,32 +28,19 @@ const StyledToolbar = styled(Toolbar)(({ theme }) => ({
     backgroundColor: alpha(theme.palette.background.default, 0.4),
     boxShadow: theme.shadows[1],
     padding: '4px 12px',
-    minHeight: '48px !important', // 🔻 Reduced height
+    minHeight: '48px !important',
 }));
 
 export const Navbartest = () => {
     const [open, setOpen] = React.useState(false);
     const navigate = useNavigate();
 
+    const toggleDrawer = (open) => () => setOpen(open);
 
     const handleLogout = () => {
-        localStorage.removeItem("authToken");
-        navigate("/Login");
+        localStorage.removeItem('authToken');
+        navigate('/Login');
     };
-
-    const [drawerOpen, setDrawerOpen] = React.useState(false);
-    const toggleDrawer = (open) => () => setDrawerOpen(open);
-
-    <Button
-        variant="outlined"
-        color="primary"
-        size="small"
-        onClick={toggleDrawer(true)}
-        sx={{ textTransform: 'none' }}
-    >
-        Open Drawer
-    </Button>
-
 
     const menuItems = [
         { label: 'Section 1', path: '/admin/allusers' },
@@ -76,8 +64,14 @@ export const Navbartest = () => {
         >
             <Container maxWidth="lg">
                 <StyledToolbar variant="dense" disableGutters>
-                    {/* Left Menu (Desktop) */}
+                    {/* Left Side: Sidebar Drawer + Section Buttons */}
                     <Box sx={{ flexGrow: 1, display: 'flex', alignItems: 'center' }}>
+                        {/* ✅ Sidebar Hamburger Button (hidden on mobile) */}
+                        <Box sx={{ display: { xs: 'none', md: 'block' }, mr: 1 }}>
+                            <Sidebar />
+                        </Box>
+
+                        {/* Section Buttons (Desktop Only) */}
                         <Box sx={{ display: { xs: 'none', md: 'flex' }, gap: 1 }}>
                             {menuItems.map((item) => (
                                 <Button
@@ -94,7 +88,7 @@ export const Navbartest = () => {
                         </Box>
                     </Box>
 
-                    {/* Right Side Buttons (Desktop) */}
+                    {/* Right Side (Logout) */}
                     <Box sx={{ display: { xs: 'none', md: 'flex' }, gap: 1, alignItems: 'center' }}>
                         <Button
                             variant="contained"
@@ -107,7 +101,7 @@ export const Navbartest = () => {
                         </Button>
                     </Box>
 
-                    {/* Mobile Menu */}
+                    {/* Mobile Hamburger Menu */}
                     <Box sx={{ display: { xs: 'flex', md: 'none' }, gap: 5 }}>
                         <IconButton aria-label="Menu" onClick={toggleDrawer(true)} color="inherit">
                             <MenuIcon />

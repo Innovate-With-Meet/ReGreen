@@ -50,7 +50,7 @@ export const Sidebar = () => {
     );
 
     return (
-        <Box sx={{ position: 'fixed', top: 10, left: 16, zIndex: 1300 }}>
+        <Box sx={{ position: 'fixed', top: 30, left: 16, zIndex: 1300 }}>
             {!open && (
                 <IconButton onClick={toggleDrawer(true)} color="inherit" size="large">
                     <MenuIcon />
